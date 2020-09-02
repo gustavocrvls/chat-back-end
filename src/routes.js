@@ -10,7 +10,8 @@ routes.get('/users/',UserController.index);
 routes.post('/users/insert',UserController.insert);
 
 // Messages
-routes.get('/messages/', MessageController.index);
+routes.get('/messages/', MessageController.indexAscending);
 routes.post('/messages/insert', MessageController.insert);
+routes.get('/messages/find', MessageController.findByUsername);
 
 module.exports = routes;
