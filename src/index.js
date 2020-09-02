@@ -8,6 +8,8 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
+require('./config/database')('mongodb://localhost', 'sirius');
+
 app.listen(3333, () => {
-    console.log('Server on Port 3333'); 
+    console.log('Server on Port 3333');
 });
