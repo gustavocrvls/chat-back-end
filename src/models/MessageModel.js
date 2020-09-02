@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema(
   {
     content: String,
-    userId: Number,
-    userName: Number
+    userId: String,
+    userUsername: String
   },
   { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } }
 );

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema(
   {
     username: String,
-    userType: Number 
+    userType: Number
   },
   { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } }
 );
