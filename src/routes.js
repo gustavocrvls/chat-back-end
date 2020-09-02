@@ -7,6 +7,7 @@ const MessageController = require('./controllers/MessageController');
 
 // User
 routes.get('/users/',UserController.index);
+routes.post('/users/login',UserController.login);
 routes.post('/users/insert',UserController.insert);
 
 // Messages

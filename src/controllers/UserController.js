@@ -18,4 +18,12 @@ module.exports = {
             return res.json({ success: true });
         });
     },
+
+    async login(req, res) {
+        const { username } = req.body;
+
+        await UserModel.findOne({username}).exec((err, data) => {
+            return res.json(data);
+        });
+    }
 };
