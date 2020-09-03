@@ -7,7 +7,7 @@ const MessageSchema = new Schema(
     userId: String,
     userUsername: String
   },
-  { timestamps: { currentTime: () => Math.floor(Date.now() / 1000) } }
+  { timestamps: { currentTime: () => Math.floor(Date.now()) } }
 );
 
 module.exports = mongoose.model("message", MessageSchema, 'message');

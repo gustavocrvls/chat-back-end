@@ -12,6 +12,9 @@ module.exports = {
 
         const user = new UserModel();
         user.username = username;
+        
+        if (req.body.userType) user.userType = req.body.userType;
+        else user.userType = 1;
 
         await user.save((err) => {
             if (err) return res.json({ success: false, error: err });

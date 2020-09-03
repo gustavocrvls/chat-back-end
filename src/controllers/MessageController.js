@@ -1,7 +1,36 @@
 const MessageModel = require('../models/MessageModel');
-const { insert } = require('./UserController');
 
 module.exports = {
+
+    // mensagens em ordem descrescente
+    async index(req, res) {
+        await MessageModel
+        .limit(50)
+        .sort('-createdAt')
+        .exec((err, data) => {
+            return res.json(data);
+        });
+    },
+
+    async indexFilter(req, res) {
+        let chatOrder = '-createdAt';
+        let userUsername = { userUsername: '' };
+        let dateQuery = '1 == 1';
+
+        const { filterOrder, filterUsername, filterDate } = req.body;
+
+        filterOrder == 'asc' ? chatOrder = 'createdAt' : chatOrder = '-createdAt';
+        filterUsername != undefined && filterUsername.length <= 0 ? userUsername = {} : userUsername.userUsername = filterUsername;
+        filterDate  != undefined && filterDate.length <=0 ? dateQuery : dateQuery = `this._id.getTimestamp().toISOString().substring(0, 10) == '${filterDate}'`
+
+        await MessageModel.find(userUsername)
+            .sort(chatOrder)
+            .$where(dateQuery)
+            .exec((err, data) => {
+                return res.json(data);
+            });
+    },
+
     async insert(req, res) {
         const { content, userId, userUsername } = req.body;
 
@@ -34,7 +63,7 @@ module.exports = {
             });
         }
 
-        await MessageModel.find({userUsername: username})
+        await MessageModel.find({ userUsername: username })
             .exec((err, data) => {
                 return res.json(data);
             })
@@ -42,11 +71,9 @@ module.exports = {
 
     // mensagens em ordem crescente
     async indexAscending(req, res) {
-        const { limit } = req.query;
-
-        if (!limit) {
-            const limit = 20; // caso não haja nenhum limite de mensagens buscadas, retorna 20 como padrão
-        }
+        const limit = 20;
+        if (req.query.limit)
+            limit = req.query.limit;
 
         await MessageModel.find().sort('createdAt').limit(Number(limit)).exec((err, data) => {
             return res.json(data);
@@ -55,7 +82,11 @@ module.exports = {
 
     // mensagens em ordem descrescente
     async indexDescending(req, res) {
-        await MessageModel.find().sort('-createdAt').exec((err, data) => {
+        const limit = 20;
+        if (req.query.limit)
+            limit = req.query.limit;
+
+        await MessageModel.find().sort('-createdAt').limit(Number(limit)).exec((err, data) => {
             return res.json(data);
         });
     },

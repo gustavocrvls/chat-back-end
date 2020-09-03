@@ -11,7 +11,8 @@ routes.post('/users/login',UserController.login);
 routes.post('/users/insert',UserController.insert);
 
 // Messages
-routes.get('/messages/', MessageController.indexAscending);
+routes.get('/messages/', MessageController.indexFilter);
+routes.post('/messages/', MessageController.indexFilter);
 routes.post('/messages/insert', MessageController.insert);
 routes.get('/messages/find', MessageController.findByUsername);
 
