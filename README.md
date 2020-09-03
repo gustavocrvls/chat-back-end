@@ -33,7 +33,7 @@ Precisa ter o mongodb rodando na máquina.
 ```
 # Author
 
-Gustavo Carvalho Silva - [gustavocrvl42@gmail.com](gustavocrvl42@gmail.com) 
+Gustavo Carvalho Silva - [gustavocrvl42@gmail.com](mailto:gustavocrvl42@gmail.com) 
 
 # Melhorias Futuras
 
