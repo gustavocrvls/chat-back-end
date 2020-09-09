@@ -23,12 +23,20 @@ module.exports = {
         filterUsername != undefined && filterUsername.length <= 0 ? userUsername = {} : userUsername.userUsername = filterUsername;
         filterDate  != undefined && filterDate.length <=0 ? dateQuery : dateQuery = `this._id.getTimestamp().toISOString().substring(0, 10) == '${filterDate}'`
 
-        await MessageModel.find(userUsername)
+        if (filterDate != undefined) {
+            await MessageModel.find({})
             .sort(chatOrder)
             .$where(dateQuery)
             .exec((err, data) => {
                 return res.json(data);
             });
+        } else {
+            await MessageModel.find({})
+            .sort(chatOrder)
+            .exec((err, data) => {
+                return res.json(data);
+            });
+        }
     },
 
     async insert(req, res) {
