@@ -23,15 +23,15 @@ module.exports = {
         filterUsername != undefined && filterUsername.length <= 0 ? userUsername = {} : userUsername.userUsername = filterUsername;
         filterDate  != undefined && filterDate.length <=0 ? dateQuery : dateQuery = `this._id.getTimestamp().toISOString().substring(0, 10) == '${filterDate}'`
 
-        if (filterDate != undefined) {
-            await MessageModel.find({})
+        if (filterDate.type != undefined) {
+            await MessageModel.find(userUsername)
             .sort(chatOrder)
             .$where(dateQuery)
             .exec((err, data) => {
                 return res.json(data);
             });
         } else {
-            await MessageModel.find({})
+            await MessageModel.find(userUsername)
             .sort(chatOrder)
             .exec((err, data) => {
                 return res.json(data);
